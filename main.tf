@@ -619,18 +619,6 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
   }
 }
 
-# Directory Bucket 
-# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_directory_bucket
-resource "aws_s3_directory_bucket" "default" {
-  count         = var.create_s3_directory_bucket ? 1 : 0
-  bucket        = local.directory_bucket_name
-  force_destroy = var.force_destroy
-
-  location {
-    name = var.availability_zone_id
-  }
-}
-
 resource "aws_s3_bucket_request_payment_configuration" "default" {
   count = local.enabled && var.s3_request_payment_configuration.enabled ? 1 : 0
 

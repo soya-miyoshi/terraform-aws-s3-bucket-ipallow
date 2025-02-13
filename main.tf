@@ -506,9 +506,9 @@ data "aws_iam_policy_document" "bucket_policy" {
     for_each = length(var.source_ip_allow_list) > 0 ? [1] : []
 
     content {
-      sid       = "AllowIPPrincipals"
+      sid       = "DenyRequestsOutsideAllowedIPs"
       effect    = "Deny"
-      actions   = ["s3:*"]
+      actions   = ["s3:GetObject", "s3:ListBucket", "s3:PutObject"]
       resources = [local.bucket_arn, "${local.bucket_arn}/*"]
       principals {
         identifiers = ["*"]
